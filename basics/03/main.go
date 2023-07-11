@@ -52,9 +52,14 @@ func main() {
 	fmt.Println(v)
 	fmt.Println(v1, v2, v3, b)
 	fmt.Println(*b)
-}
 
-func UNUSED(x ...interface{}) {}
+	// array file
+	array()
+	// slice file
+	slice()
+	// maps file
+	maps()
+}
 
 func call(x int) {
 	fmt.Println("call method")
