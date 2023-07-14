@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 type Abser interface {
@@ -85,6 +86,41 @@ func interfaces() {
 	i4 = "lord voldemort"
 	fmt.Printf("(%v %T)\n", i4, i4)
 
+	var is interface{} = "some string"
+
+	s := is.(string)
+	fmt.Println(s)
+
+	s, ok := is.(string)
+	fmt.Println(s, ok)
+
+	f2, ok := is.(float64)
+	fmt.Println(f2, ok)
+
+	// panic
+	// f2 = is.(float64)
+	// fmt.Println(f2)
+
+	do(83)
+	do("arif")
+	do(false)
+
+	// Stringers
+	person1 := Person{"arif", 22}
+	person2 := Person{"furkan", 12}
+
+	fmt.Println(person1)
+	fmt.Println(person2)
+
+	fmt.Println("\nStringers exercise")
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+
 }
 
 type Vertex2 struct {
@@ -115,4 +151,36 @@ func (f F) M() {
 
 func describe(i I) {
 	fmt.Printf("(%v %T)\n", i, i)
+}
+
+func do(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
+}
+
+type Person struct {
+	name string
+	age  int
+}
+
+func (p Person) String() string {
+	return fmt.Sprintf("%v - %v years old", p.name, p.age)
+}
+
+type IPAddr [4]byte
+
+func (i IPAddr) String() string {
+	var str strings.Builder
+	for j := 0; j < len(i)-1; j++ {
+		fmt.Fprintf(&str, "%v.", int(i[j]))
+	}
+	fmt.Fprintf(&str, "%v", int(i[len(i)-1]))
+
+	return str.String()
 }
