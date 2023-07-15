@@ -5,4 +5,5 @@ func main() {
 	interfaces()
 	errors()
 	readers()
+	images()
 }

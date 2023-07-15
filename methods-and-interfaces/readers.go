@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	"golang.org/x/tour/reader"
@@ -32,14 +33,16 @@ type rot13Reader struct {
 }
 
 func (r rot13Reader) Read(b []byte) (int, error) {
-	// n, err := r.r.Read(b)
+	n, err := r.r.Read(b)
 	for i := 0; i < len(b); i++ {
-		if b[i] >= 'A' && b[i] <= 'Z' {
-
+		if b[i] >= 'A' && b[i] < 'Z' {
+			b[i] = 65 + ((b[i] - 65 + 13) % 26)
+		} else if b[i] >= 'a' && b[i] < 'z' {
+			b[i] = 97 + ((b[i] - 97 + 13) % 26)
 		}
 	}
 
-	return 1, nil
+	return n, err
 }
 
 func readers() {
@@ -60,8 +63,9 @@ func readers() {
 	fmt.Println("\nreader exercise")
 	reader.Validate(MyReader{})
 
-	// TODO: implement rot13Reader
-	// s := strings.NewReader("Lbh penpxrq gur pbqr!")
-	// rotR := rot13Reader(s)
-	// io.Copy(os.Stdout, &rotR)
+	// TODO implement rot13Reader
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	rotR := rot13Reader{s}
+	io.Copy(os.Stdout, &rotR)
+	fmt.Println()
 }
