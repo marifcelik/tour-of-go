@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -178,9 +179,9 @@ type IPAddr [4]byte
 func (i IPAddr) String() string {
 	var str strings.Builder
 	for j := 0; j < len(i)-1; j++ {
-		fmt.Fprintf(&str, "%v.", int(i[j]))
+		str.WriteString(strconv.Itoa(int(i[j])) + ".")
 	}
-	fmt.Fprintf(&str, "%v", int(i[len(i)-1]))
+	str.WriteString(strconv.Itoa(int(i[len(i)-1])))
 
 	return str.String()
 }
