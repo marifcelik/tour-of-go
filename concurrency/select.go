@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func fibonacci_single(c, quit chan int) {
@@ -36,19 +35,22 @@ func select_() {
 	// default selection
 	fmt.Println("\n-- default selection --")
 
-	tick := time.Tick(time.Second)
-	boom := time.After(3 * time.Second)
+	// i commented this line because i cant wait it in development
+	/*
+		tick := time.Tick(500 * time.Millisecond)
+		boom := time.After(1 * time.Second)
 
-	for {
-		select {
-		case <-tick:
-			fmt.Printf("tick ")
-		case <-boom:
-			fmt.Println("\nbooom !")
-			return
-		default:
-			fmt.Printf(".")
-			time.Sleep(100 * time.Millisecond)
+		for {
+			select {
+			case <-tick:
+				fmt.Printf("tick ")
+			case <-boom:
+				fmt.Println("\nbooom !")
+				return
+			default:
+				fmt.Printf(".")
+				time.Sleep(50 * time.Millisecond)
+			}
 		}
-	}
+	*/
 }
