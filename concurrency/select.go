@@ -34,6 +34,7 @@ func select_() {
 
 	// default selection
 	fmt.Println("\n-- default selection --")
+	fmt.Println("/* commented */")
 
 	// i commented this line because i cant wait it in development
 	/*
