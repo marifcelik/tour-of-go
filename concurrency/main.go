@@ -8,4 +8,5 @@ func main() {
 	select_()
 	equivalent_binary_tree()
 	syncMutex()
+	crawler()
 }
